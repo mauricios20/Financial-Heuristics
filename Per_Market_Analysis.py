@@ -137,6 +137,7 @@ list_df = {elem: [] for elem in countries}
 GStats = {elem: pd.DataFrame for elem in countries}
 GStatsDP = {elem: pd.DataFrame for elem in countries}
 GStatsBills = {elem: pd.DataFrame for elem in countries}
+
 for key in DataFrameDict.keys():
     DataFrameDict[key] = dtf[dtf['iso'] == key]
     DataFrameDict[key] = DataFrameDict[key].append(dummy_dtf, ignore_index=True)
@@ -150,7 +151,12 @@ GSdtf = compile_dic(GStats)
 GSdtfDP = compile_dic(GStatsDP)
 GSdtfBills = compile_dic(GStatsBills)
 
-GSdtfDP
+# Write the Results on a Excel Spread Sheet
+writer = pd.ExcelWriter('GeneralOverview_Output.xlsx', engine='xlsxwriter')
+GSdtf.to_excel(writer, sheet_name='General Overview')
+GSdtfBills.to_excel(writer, sheet_name='General Overview', startrow=0, startcol=11)
+GSdtfBills.to_excel(writer, sheet_name='General Overview', startrow=21, startcol=0)
+writer.save()
 
 
 # # Performe stata commands in all the decades
