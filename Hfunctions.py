@@ -17,9 +17,9 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
                 # print(cr[0])
                 fwd = cr + 1
                 # print(fwd[0])
-                ivalue = list_df[i].at[cr[0], 'Recency']
+                ivalue = list_df[i].iloc[cr[0], 3]
                 # print(ivalue)
-                rr = list_df[i].at[fwd[0], 'eq_capgain']
+                rr = list_df[i].iloc[fwd[0], 2]
                 # print(rr)
                 g = (ivalue) * (1 + rr)
                 # print(g)
@@ -32,7 +32,7 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
                 # print(cr[0])
                 fwd = cr + 1
                 # print(fwd[0])
-                ivalue = list_df[i].at[cr[0], 'Recency']
+                ivalue = list_df[i].iloc[cr[0], 3]
                 # print(ivalue)
                 z = (ivalue) * (1 + sfassetr)
                 # print(z)
@@ -52,9 +52,9 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
             # print(cr[0])
             fwd = cr + 1
             # print(fwd[0])
-            ivalue = list_df[i].at[cr[0], '60/40']
+            ivalue = list_df[i].iloc[cr[0], 4]
             # print(ivalue)
-            rr = list_df[i].at[fwd[0], 'eq_capgain']
+            rr = list_df[i].iloc[fwd[0], 2]
             # print(rr)
             sixty = (0.60 * ivalue) * (1 + rr)
             # print(sixty)
@@ -77,7 +77,7 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
             # print(cr[0])
             fwd = cr + 1
             # print(fwd[0])
-            ivalue = list_df[i].at[cr[0], 'AllStocks']
+            ivalue = list_df[i].iloc[cr[0], 5]
             # print(ivalue)
             res = ivalue * (1 + j)
             list_df[i].iloc[fwd[0], 5] = res
@@ -136,9 +136,9 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
                 # print(cr[0])
                 fwd = cr + 1
                 # print(fwd[0])
-                ivalue = list_df[i].at[cr[0], 'Naive']
+                ivalue = list_df[i].iloc[cr[0], 7]
                 # print(ivalue)
-                rr = list_df[i].at[fwd[0], 'eq_capgain']
+                rr = list_df[i].iloc[fwd[0], 2]
                 # print(rr)
                 g = (ivalue) * (1 + rr)
                 # print(g)
@@ -151,7 +151,7 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
                 # print(cr[0])
                 fwd = cr + 1
                 # print(fwd[0])
-                ivalue = list_df[i].at[cr[0], 'Naive']
+                ivalue = list_df[i].iloc[cr[0], 7]
                 # print(ivalue)
                 z = (ivalue) * (1 + sfassetr)
                 # print(z)
