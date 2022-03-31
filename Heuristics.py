@@ -2,7 +2,6 @@ import os
 import pandas as pd
 import numpy as np
 from Hfunctions import heuristics
-#  # #################### Load data ######################
 
 path = '/Users/mau/Dropbox/Mac/Documents/Dissertation/Heuristics/Data'
 os.chdir(path)
@@ -29,28 +28,11 @@ for key in DataFrameDict.keys():
     DataFrameDict[key]['RecencyV2'] = 1
     # ResultsDtfDict[key] = resencyfunction()
 
-calis = heuristics(DataFrameDict['CAN'], 0, 0.025, 15)
+Canda = heuristics(DataFrameDict['CAN'], 0, 0.025, 15)
 
-for i in countries:
-    dt = heuristics(DataFrameDict[i], 0, 0.025, 15)
-print(dt)
-# # Performe stata commands in all the countries year blocks
-DecadesDict = {elem: pd.DataFrame for elem in countries}
-# CenturyDictDP = {elem: pd.DataFrame for elem in countries}
-# CenturyDictBills = {elem: pd.DataFrame for elem in countries}
-# for key in DecadesDict.keys():
-#     print(key)
-#     print(DataFrameDict[key])
-#     DecadesDict[key] = heuristics(DataFrameDict[key], 0, 0.025, 15)
-    # CenturyDictDP[key] = iso_dtfC(key, 'eq_dp', 2)
-    # CenturyDictBills[key] = iso_dtfC(key, 'bill_rate', 2)
-
-
-
-
-
-
-
+for x in countries:
+    print(x)
+    heuristics(DataFrameDict[x], 0, 0.025, 15)
 
 # # ########### Heuristics FUNCTION Check #################### #
 # # def heuristics(key, cutoff, sfassetr, blocks):

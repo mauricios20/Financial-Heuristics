@@ -7,9 +7,12 @@ import numpy as np
 def heuristics(dtf, cutoff, sfassetr, blocks):
 
     list_df = np.array_split(dtf, blocks)
+    new_list = {}
     for i in range(0, blocks):
         list_df[i].dropna(inplace=True)
         list_df[i].reset_index(drop=True, inplace=True)
+        new_list.append(list_df[i])
+    for i in range(0, blocks):
         for j in list_df[i]['eq_capgain']:
             if j > cutoff:
                 cr = list_df[i]['eq_capgain'][list_df[i]
