@@ -4,9 +4,9 @@ import numpy as np
 
 
 # ### Recency FUNCTION INSIDE SOME FUNCTION
-def heuristics(key, cutoff, sfassetr, blocks):
+def heuristics(dtf, cutoff, sfassetr, blocks):
 
-    list_df = np.array_split(DataFrameDict[key], blocks)
+    list_df = np.array_split(dtf, blocks)
     for i in range(0, blocks):
         list_df[i].dropna(inplace=True)
         list_df[i].reset_index(drop=True, inplace=True)

@@ -1,11 +1,11 @@
+from sfi import Scalar, Matrix
+from pystata import stata
 import os
 import pandas as pd
 import numpy as np
 import stata_setup
 import xlsxwriter
 stata_setup.config('/Applications/Stata', 'be')
-from pystata import stata
-from sfi import Scalar, Matrix
 
 
 # Function for Overall Stats
@@ -13,7 +13,7 @@ from sfi import Scalar, Matrix
 
 def iso(key, x):
     # 15 blocks takes 10 observations, decades
-    command = 'summarize '+x+', '+'detail'
+    command = 'summarize ' + x + ', ' + 'detail'
     list_of_stats = []
     stata.pdataframe_to_data(DataFrameDict[key], force=True)
     stata.run(command)
@@ -51,7 +51,7 @@ def compile_dic(dic):
 
 def iso_dtf(key, x, blocks):
     # 15 blocks takes 10 observations, decades
-    command = 'summarize '+x+', '+'detail'
+    command = 'summarize ' + x + ', ' + 'detail'
     list_df = np.array_split(DataFrameDict[key], blocks)
     list_of_stats = {elem: [] for elem in range(0, blocks)}
     for i in range(0, blocks):
@@ -73,9 +73,9 @@ def iso_dtf(key, x, blocks):
 
     df = pd.DataFrame.from_dict(list_of_stats, orient='index')
     df.rename(columns={0: "N", 1: "Mean", 2: "Max",
-                        3: "Min", 4: "Sd", 5: "Var",
-                        6: "Sum of Variable", 7: "Kurtosis",
-                        8: "Skewness"}, inplace=True)
+                       3: "Min", 4: "Sd", 5: "Var",
+                       6: "Sum of Variable", 7: "Kurtosis",
+                       8: "Skewness"}, inplace=True)
     # Rename columns DO NOT FORGERT
     return df
 
@@ -87,7 +87,7 @@ def iso_dtfC(key, x, blocks):
     FC = years[:100]  # First century From 1870 to 1969
     SC = years[100:]  # Second Century from 1970 to 2019
 
-    command = 'summarize '+x+', '+'detail'
+    command = 'summarize ' + x + ', ' + 'detail'
     # Create data frames for each century
     dtfFC = DataFrameDict[key].loc[DataFrameDict[key].year.isin(FC)]
     dtfSC = DataFrameDict[key].loc[DataFrameDict[key].year.isin(SC)]
@@ -113,9 +113,9 @@ def iso_dtfC(key, x, blocks):
 
     df = pd.DataFrame.from_dict(list_of_stats, orient='index')
     df.rename(columns={0: "N", 1: "Mean", 2: "Max",
-                        3: "Min", 4: "Sd", 5: "Var",
-                        6: "Sum of Variable", 7: "Kurtosis",
-                        8: "Skewness"}, inplace=True)
+                       3: "Min", 4: "Sd", 5: "Var",
+                       6: "Sum of Variable", 7: "Kurtosis",
+                       8: "Skewness"}, inplace=True)
     # Rename columns DO NOT FORGERT
     return df
 #  # #################### Load data ######################
@@ -125,7 +125,7 @@ path = '/Users/mau/Dropbox/Mac/Documents/Dissertation/Heuristics/Data'
 os.chdir(path)
 
 dtf = pd.read_csv('JSTdatasetR5.csv', header=0,
-                    usecols=['year', 'iso', 'eq_capgain', 'eq_dp', 'bill_rate'])
+                  usecols=['year', 'iso', 'eq_capgain', 'eq_dp', 'bill_rate'])
 
 # Create dataframes for each country into countries
 countries = dtf.iso.unique()
@@ -140,7 +140,8 @@ GStatsBills = {elem: pd.DataFrame for elem in countries}
 
 for key in DataFrameDict.keys():
     DataFrameDict[key] = dtf[dtf['iso'] == key]
-    DataFrameDict[key] = DataFrameDict[key].append(dummy_dtf, ignore_index=True)
+    DataFrameDict[key] = DataFrameDict[key].append(
+        dummy_dtf, ignore_index=True)
     GStats[key] = iso(key, 'eq_capgain')
     GStatsDP[key] = iso(key, 'eq_dp')
     GStatsBills[key] = iso(key, 'bill_rate')
@@ -154,8 +155,10 @@ GSdtfBills = compile_dic(GStatsBills)
 # Write the Results on a Excel Spread Sheet
 writer = pd.ExcelWriter('GeneralOverview_Output.xlsx', engine='xlsxwriter')
 GSdtf.to_excel(writer, sheet_name='General Overview')
-GSdtfBills.to_excel(writer, sheet_name='General Overview', startrow=0, startcol=11)
-GSdtfBills.to_excel(writer, sheet_name='General Overview', startrow=21, startcol=0)
+GSdtfBills.to_excel(writer, sheet_name='General Overview',
+                    startrow=0, startcol=11)
+GSdtfDP.to_excel(writer, sheet_name='General Overview',
+                 startrow=21, startcol=0)
 writer.save()
 
 
@@ -174,9 +177,9 @@ writer = pd.ExcelWriter('Decades_Output.xlsx', engine='xlsxwriter')
 for key in DecadeDict:
     DecadeDict[key].to_excel(writer, sheet_name=key)
     DecadeDictBills[key].to_excel(writer, sheet_name=key,
-                                    startrow=0, startcol=11)
+                                  startrow=0, startcol=11)
     DecadeDictDP[key].to_excel(writer, sheet_name=key,
-                                    startrow=18, startcol=0)
+                               startrow=18, startcol=0)
 writer.save()
 
 # # Performe stata commands in all the 30 year blocks
@@ -194,7 +197,8 @@ writer = pd.ExcelWriter('Thirty_Output.xlsx', engine='xlsxwriter')
 for key in ThirtyDict:
     ThirtyDict[key].to_excel(writer, sheet_name=key)
     ThirtyDictDP[key].to_excel(writer, sheet_name=key, startrow=8, startcol=0)
-    ThirtyDictBills[key].to_excel(writer, sheet_name=key, startrow=0, startcol=11)
+    ThirtyDictBills[key].to_excel(
+        writer, sheet_name=key, startrow=0, startcol=11)
 writer.save()
 
 # 'AUS', 'BEL', 'CAN', 'CHE', 'DEU', 'DNK', 'ESP', 'FIN', 'FRA',
@@ -215,7 +219,8 @@ writer = pd.ExcelWriter('Century_Output.xlsx', engine='xlsxwriter')
 for key in CenturyDict:
     CenturyDict[key].to_excel(writer, sheet_name=key)
     CenturyDictDP[key].to_excel(writer, sheet_name=key, startrow=5, startcol=0)
-    CenturyDictBills[key].to_excel(writer, sheet_name=key, startrow=0, startcol=11)
+    CenturyDictBills[key].to_excel(
+        writer, sheet_name=key, startrow=0, startcol=11)
 writer.save()
 
 

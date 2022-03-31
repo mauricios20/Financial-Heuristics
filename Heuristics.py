@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
-from Financial-Heuristics.Hfunctions import heuristics
+from Hfunctions import heuristics
 #  # #################### Load data ######################
 
 path = '/Users/mau/Dropbox/Mac/Documents/Dissertation/Heuristics/Data'
@@ -216,7 +216,7 @@ for i in range(0, 15):
 
 finaldf = pd.concat(list_df)
 
-calis = heuristics('USA', 0, 0.025, 15)
+calis = heuristics(DataFrameDict['USA'], 0, 0.025, 15)
 # check
 # list_df[0]
 # list_df[3]
