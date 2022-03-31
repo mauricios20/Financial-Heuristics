@@ -7,25 +7,26 @@ import numpy as np
 def heuristics(dtf, cutoff, sfassetr, blocks):
 
     list_df = np.array_split(dtf, blocks)
-    new_list = {}
     for i in range(0, blocks):
         list_df[i].dropna(inplace=True)
         list_df[i].reset_index(drop=True, inplace=True)
-        new_list.append(list_df[i])
-    for i in range(0, blocks):
+
+    list_df = list(filter(lambda list_df: not list_df.empty, list_df))
+    list_df = [i for i in list_df if len(i) > 2]
+    for i in range(0, len(list_df)):
         for j in list_df[i]['eq_capgain']:
             if j > cutoff:
                 cr = list_df[i]['eq_capgain'][list_df[i]
                                               ['eq_capgain'] == j].index.values
-                # print(cr[0])
+                print(cr[0])
                 fwd = cr + 1
-                # print(fwd[0])
+                print(fwd[0])
                 ivalue = list_df[i].iloc[cr[0], 3]
-                # print(ivalue)
+                print(ivalue)
                 rr = list_df[i].iloc[fwd[0], 2]
-                # print(rr)
+                print(rr)
                 g = (ivalue) * (1 + rr)
-                # print(g)
+                print(g)
                 list_df[i].iloc[fwd[0], 3] = g
                 if fwd[0] == len(list_df[i]) - 1:
                     break
@@ -48,7 +49,7 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
     # list_df[3]
 
     # ### 60/40 Part of the FUNCTION INSIDE SOME FUNCTION
-    for i in range(0, blocks):
+    for i in range(0, len(list_df)):
         for j in list_df[i]['eq_capgain']:
             cr = list_df[i]['eq_capgain'][list_df[i]
                                           ['eq_capgain'] == j].index.values
@@ -73,7 +74,7 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
     # list_df[12]
 
     # ### 100% Stocks Part of the FUNCTION INSIDE SOME FUNCTION
-    for i in range(0, blocks):
+    for i in range(0, len(list_df)):
         for j in list_df[i]['eq_capgain']:
             cr = list_df[i]['eq_capgain'][list_df[i]
                                           ['eq_capgain'] == j].index.values
@@ -92,12 +93,12 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
     # list_df[12]
 
     # ### 2 down out Part of the FUNCTION INSIDE SOME FUNCTION
-    list_of_js = {elem: [] for elem in range(0, blocks)}
-    for i in range(0, blocks):
+    list_of_js = {elem: [] for elem in range(0, len(list_df))}
+    for i in range(0, len(list_df)):
         for j in list_df[i]['eq_capgain']:
             list_of_js[i].append(j)
 
-    for i in range(0, blocks):
+    for i in range(0, len(list_df)):
         res = list(zip(list_of_js[i], list_of_js[i][1:]))
         for x, y in res:
             if x < cutoff and y < cutoff:
@@ -131,7 +132,7 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
     # list_df[12]
 
     # ### Naive Part of the FUNCTION INSIDE SOME FUNCTION
-    for i in range(0, blocks):
+    for i in range(0, len(list_df)):
         for j in list_df[i]['eq_capgain']:
             if j < cutoff:
                 cr = list_df[i]['eq_capgain'][list_df[i]
@@ -167,7 +168,7 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
     # list_df[12]
 
     # ### Recency 2 of the FUNCTION INSIDE SOME FUNCTION
-    for i in range(0, blocks):
+    for i in range(0, len(list_df)):
         for j in list_df[i]['eq_capgain']:
             if j < sfassetr:
                 # print('below')

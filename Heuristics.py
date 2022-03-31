@@ -28,52 +28,103 @@ for key in DataFrameDict.keys():
     DataFrameDict[key]['RecencyV2'] = 1
     # ResultsDtfDict[key] = resencyfunction()
 
-Canda = heuristics(DataFrameDict['CAN'], 0, 0.025, 15)
+# Canda = heuristics(DataFrameDict['IRL'], 0, 0.025, 15)
+# print(Canda)
+# list_df = {elem: [] for elem in countries}
+# list_df['AUS']
 
-for x in countries:
-    print(x)
-    heuristics(DataFrameDict[x], 0, 0.025, 15)
+for key in countries:
+    ResultsDtfDict[key] = heuristics(DataFrameDict[key], 0, 0.025, 15)
+
+
 
 # # ########### Heuristics FUNCTION Check #################### #
 # # def heuristics(key, cutoff, sfassetr, blocks):
-#
-# # ## 60/40 Part of the FUNCTION INSIDE SOME FUNCTION
-# list_df = np.array_split(DataFrameDict['USA'], 15)
+# list_df = np.array_split(DataFrameDict['JPN'], 15)
 # for i in range(0, 15):
 #     list_df[i].dropna(inplace=True)
 #     list_df[i].reset_index(drop=True, inplace=True)
-#     for j in list_df[i]['eq_capgain']:
-#         if j > 0:
-#             cr = list_df[i]['eq_capgain'][list_df[i]['eq_capgain'] == j].index.values
-#             # print(cr[0])
-#             fwd = cr+1
-#             # print(fwd[0])
-#             ivalue = list_df[i].at[cr[0], 'Recency']
-#             # print(ivalue)
-#             rr = list_df[i].at[fwd[0], 'eq_capgain']
-#             # print(rr)
-#             g = (ivalue)*(1+rr)
-#             # print(g)
-#             list_df[i].iloc[fwd[0], 3] = g
-#             if fwd[0] == len(list_df[i])-1:
-#                 break
-#         if j < 0:
-#             cr = list_df[i]['eq_capgain'][list_df[i]['eq_capgain'] == j].index.values
-#             # print(cr[0])
-#             fwd = cr+1
-#             # print(fwd[0])
-#             ivalue = list_df[i].at[cr[0], 'Recency']
-#             # print(ivalue)
-#             z = (ivalue)*(1+0.025)
-#             # print(z)
-#             list_df[i].iloc[fwd[0], 3] = z
-#             if fwd[0] == len(list_df[i])-1:
-#                 break
+#
+# list_df = list(filter(lambda list_df: not list_df.empty, list_df))
+# list_df = [i for i in list_df if len(i) > 2]
+# # ## Recency of the FUNCTION INSIDE SOME FUNCTION
+# for j in list_df[4]['eq_capgain']:
+#     if j > 0:
+#         print('positive')
+#         cr = list_df[4]['eq_capgain'][list_df[4]['eq_capgain'] == j].index.values
+#         print(cr[0])
+#         fwd = cr+1
+#         print(fwd[0])
+#         ivalue = list_df[4].iloc[cr[0], 3]
+#         # print(ivalue)
+#         rr = list_df[4].iloc[fwd[0], 2]
+#         # print(rr)
+#         g = (ivalue)*(1+rr)
+#         # print(g)
+#         list_df[4].iloc[fwd[0], 3] = g
+#         if fwd[0] == len(list_df[4])-1:
+#             break
+#     if j < 0:
+#         print('negative')
+#         cr = list_df[4]['eq_capgain'][list_df[4]['eq_capgain'] == j].index.values
+#         print(cr[0])
+#         fwd = cr+1
+#         print(fwd[0])
+#         ivalue = list_df[4].iloc[cr[0], 3]
+#         print(ivalue)
+#         z = (ivalue)*(1+0.025)
+#         print(z)
+#         list_df[4].iloc[fwd[0], 3] = z
+#         if fwd[0] == len(list_df[4])-1:
+#             break
 # # # check
-# # list_df[0]
+# list_df[4]
 # # list_df[12]
 # # list_df[3]
+# # list_df = np.array_split(DataFrameDict['JPN'], 15)
+# for i in range(0, 15):
+#     list_df[i].dropna(inplace=True)
+#     list_df[i].reset_index(drop=True, inplace=True)
 #
+# list_df = list(filter(lambda list_df: not list_df.empty, list_df))
+# list_df = [i for i in list_df if len(i) > 2]
+# cutoff = 0
+# sfassetr = 0
+# for i in range(0, len(list_df)):
+#     for j in list_df[i]['eq_capgain']:
+#         if j > cutoff:
+#             cr = list_df[i]['eq_capgain'][list_df[i]
+#                                           ['eq_capgain'] == j].index.values
+#             print(cr[0])
+#             fwd = cr + 1
+#             print(fwd[0])
+#             ivalue = list_df[i].iloc[cr[0], 3]
+#             print(ivalue)
+#             rr = list_df[i].iloc[fwd[0], 2]
+#             print(rr)
+#             g = (ivalue) * (1 + rr)
+#             print(g)
+#             list_df[i].iloc[fwd[0], 3] = g
+#             if fwd[0] == len(list_df[i]) - 1:
+#                 break
+#         if j < cutoff:
+#             cr = list_df[i]['eq_capgain'][list_df[i]
+#                                           ['eq_capgain'] == j].index.values
+#             # print(cr[0])
+#             fwd = cr + 1
+#             # print(fwd[0])
+#             ivalue = list_df[i].iloc[cr[0], 3]
+#             # print(ivalue)
+#             z = (ivalue) * (1 + sfassetr)
+#             # print(z)
+#             list_df[i].iloc[fwd[0], 3] = z
+#             if fwd[0] == len(list_df[i]) - 1:
+#                 break
+# # # check
+# list_df[0]
+# # list_df[12]
+# # list_df[3]
+
 # # ### 60/40 Part of the FUNCTION INSIDE SOME FUNCTION
 # for i in range(0, 15):
 #     for j in list_df[i]['eq_capgain']:
