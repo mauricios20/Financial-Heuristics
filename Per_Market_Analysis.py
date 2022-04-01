@@ -1,11 +1,11 @@
-from sfi import Scalar, Matrix
-from pystata import stata
+
 import os
 import pandas as pd
 import numpy as np
 import stata_setup
-import xlsxwriter
 stata_setup.config('/Applications/Stata', 'be')
+from sfi import Scalar, Matrix
+from pystata import stata
 
 
 # Function for Overall Stats
@@ -171,7 +171,7 @@ for key in DecadeDict.keys():
     DecadeDictDP[key] = iso_dtf(key, 'eq_dp', 15)
     DecadeDictBills[key] = iso_dtf(key, 'bill_rate', 15)
 
-DecadeDict['ITA']
+print(DecadeDictBills['ITA'])
 # Write the Results on a Excel Spread Sheet
 writer = pd.ExcelWriter('Decades_Output.xlsx', engine='xlsxwriter')
 for key in DecadeDict:

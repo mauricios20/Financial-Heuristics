@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-import numpy as np
 from Hfunctions import heuristics
 
 path = '/Users/mau/Dropbox/Mac/Documents/Dissertation/Heuristics/Data'
@@ -33,7 +32,7 @@ for key in countries:
     ResultsDtfDict[key] = heuristics(DataFrameDict[key], 0, 0.025, 15)
 
 print(ResultsDtfDict['USA'][['Recency', '60/40',
-      'AllStocks', '2down', 'Naive', 'RecencyV2']].head(9))
+      'AllStocks', '2down', 'Naive', 'RecencyV2']].head(8))
 
 
 # # ########### Heuristics FUNCTION Check #################### #

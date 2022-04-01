@@ -15,7 +15,6 @@ def heuristics(dtf, cutoff, sfassetr, blocks):
     list_df = [i for i in list_df if len(i) > 2]
 
     for i in range(0, len(list_df)):
-        print(list_df[i])
         for j in list_df[i]['eq_capgain']:
             if j >= cutoff:
                 cr = list_df[i]['eq_capgain'][list_df[i]
