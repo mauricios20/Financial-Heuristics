@@ -28,14 +28,12 @@ for key in DataFrameDict.keys():
     DataFrameDict[key]['RecencyV2'] = 1
     # ResultsDtfDict[key] = resencyfunction()
 
-# Canda = heuristics(DataFrameDict['IRL'], 0, 0.025, 15)
-# print(Canda)
-# list_df = {elem: [] for elem in countries}
-# list_df['AUS']
-
 for key in countries:
+    print(key)
     ResultsDtfDict[key] = heuristics(DataFrameDict[key], 0, 0.025, 15)
 
+print(ResultsDtfDict['USA'][['Recency', '60/40',
+      'AllStocks', '2down', 'Naive', 'RecencyV2']].head(9))
 
 
 # # ########### Heuristics FUNCTION Check #################### #
